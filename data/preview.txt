@@ -1,0 +1,5 @@
+entity_id,post_type,followers,industry,location,format,post_day,local_hour_num,likes,comments,shares,engagement_per_1k,num_sentences,company_mentions_count,profile_mentions_count,hashtags_count,external_links_count
+2,company,15157,Financial Services,United States,Image,Thursday,10,19,1,2,1.451474566207033,7,0,0,0,0
+2,company,15157,Financial Services,United States,Video,Tuesday,10,38,1,3,2.7709968991225176,5,1,1,0,1
+2,company,15157,Financial Services,United States,Image,Thursday,10,46,2,8,3.6946625321633566,7,1,4,0,1
+2,company,15157,Financial Services,United States,Document,Tuesday,9,30,1,3,2.2431879659563236,3,0,0,0,0
