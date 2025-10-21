@@ -64,7 +64,7 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 
 - **Correlation highlights**: Except `likes, comments and shares` that are summed to get the `total_engagement`, `followers_log` has the strongest positive correlation with `total_engagement`.
 
-![Correlation Matric](images/Correlation_Matrix.png)
+![Correlation Matrix](images/Correlation_Matrix.png)
 ---
 
 ### 5) Machine learning approach
@@ -91,7 +91,10 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 - Linear/Ridge/Lasso and a standalone Tree trail the ensembles.
 
 #### Confusion matrix (Gradient Boosting; high vs low engagement)
-- [[1728, 1220], [264, 2571]]; Precision ≈ 0.678; Recall ≈ 0.907; Accuracy ≈ 0.743
+
+![Confusion Matrix](images/Confusion_Matrix.png)
+
+- Precision ≈ 0.678; Recall ≈ 0.907; Accuracy ≈ 0.743
 
 ---
 
@@ -101,6 +104,12 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 - **Optimized performance**:
   - R² ≈ 0.4833; RMSE ≈ 148.92; MAE ≈ 69.48
   - Binary classification: ROC AUC ≈ 0.859; F1 ≈ 0.764; Kappa ≈ 0.454
+
+![ROC AUC](images/ROCAUC.png)
+
+
+# /!\ I stopped here
+
 - **Diagnostics**: Actual-vs-Predicted scatter shows reasonable fit with spread expected for social data; residuals centered around 0; model comparison confirms ensemble superiority.
 
 ---
