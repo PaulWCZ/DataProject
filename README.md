@@ -19,7 +19,6 @@ Team: Paul Witczak, Filip Janeba, Jasmine Dressler, Sara Tamanza
 FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Current performance is volatile: a few standout posts, many quiet ones. We aim to build a data-backed playbook—what to post, and when—to lift engagement consistently.
 
 - **Success metric**: Total engagement = Likes + Comments + Shares
-- **Secondary metric**: Engagement rate = Total engagement / Followers
 - **Mandate**: Identify controllable levers (timing, format, content) and quantify their impact.
 
 ---
@@ -40,7 +39,7 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 - Content signals: `has_hashtags`, `has_external_links`, `has_mentions`, `total_mentions`, and a composite `content_richness`.
 - Log-transformed followers to reduce skew: `followers_log = log1p(followers)`.
 - Removed extreme viral outliers (top 1% by engagement) to stabilize modeling.
-- Result: 25 engineered features; processed dataset size: 30,709 posts; ML-ready after NaN filtering: 28,914 posts.
+- Result: 25 engineered features; processed dataset size: 30,709 posts; ML-ready after NaN filtering: 28,914 posts. (We remove the NaN because it came from Followers being 0, it may come from scrapping error.)
 
 ---
 
@@ -54,11 +53,15 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
   - Document ≈ 77.1
   - Article ≈ 42.6
   - Poll ≈ 27.5
-- **Timing**: Evening performs best; then night, afternoon, morning. Hourly patterns reveal elevated engagement around late morning/afternoon/evening on weekends.
 - **Audience size**: Larger audiences show higher absolute engagement but not necessarily higher engagement rate.
 - **Content length**: Moderate-to-long content correlates with higher engagement vs very short.
-- **Correlation highlights**: `followers_log` has the strongest positive correlation with `total_engagement`; timing encodings (`hour_sin`, `hour_cos`) and content richness also show signal.
+![Linkedin Engagement Analysis](images/engagement_analysis.png)
 
+- **Timing**: Evening performs best; then night, afternoon, morning. Hourly patterns reveal elevated engagement around late morning/afternoon/evening on weekends.
+![Engagement by Day](images/EngagementbyDay.png)
+
+- **Correlation highlights**: Except `likes, comments and shares` that are summed to get the `total_engagement`, `followers_log` has the strongest positive correlation with `total_engagement`.
+![Correlation Matric](images/Correlation_Matrix.png)
 ---
 
 ### 5) Machine learning approach
