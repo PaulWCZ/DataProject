@@ -55,12 +55,15 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
   - Poll ≈ 27.5
 - **Audience size**: Larger audiences show higher absolute engagement but not necessarily higher engagement rate.
 - **Content length**: Moderate-to-long content correlates with higher engagement vs very short.
+
 ![Linkedin Engagement Analysis](images/engagement_analysis.png)
 
 - **Timing**: Evening performs best; then night, afternoon, morning. Hourly patterns reveal elevated engagement around late morning/afternoon/evening on weekends.
+
 ![Engagement by Day](images/EngagementbyDay.png)
 
 - **Correlation highlights**: Except `likes, comments and shares` that are summed to get the `total_engagement`, `followers_log` has the strongest positive correlation with `total_engagement`.
+
 ![Correlation Matric](images/Correlation_Matrix.png)
 ---
 
