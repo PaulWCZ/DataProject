@@ -2,6 +2,23 @@
 
 Team: Paul Witczak, Filip Janeba, Jasmine Dressler, Sara Tamanza
 
+### Contents
+- [Executive summary](#executive-summary)
+- [1) Business context](#1-business-context)
+- [2) Data overview](#2-data-overview)
+- [3) Preprocessing and feature engineering (what we did)](#3-preprocessing-and-feature-engineering-what-we-did)
+- [4) Exploratory data analysis (what we found)](#4-exploratory-data-analysis-what-we-found)
+- [5) Machine learning approach](#5-machine-learning-approach)
+- [6) Model optimization and diagnostics](#6-model-optimization-and-diagnostics)
+- [7) Interpreting the model — feature importance](#7-interpreting-the-model--feature-importance)
+- [8) Business recommendations (playbook)](#8-business-recommendations-playbook)
+- [9) For FinDev specifically (≈20k followers; B2B financial software)](#9-for-findev-specifically-20k-followers-b2b-financial-software)
+- [10) Limitations and risk considerations](#10-limitations-and-risk-considerations)
+- [11) Next steps](#11-next-steps)
+- [12) Reproducibility](#12-reproducibility)
+- [13) Personalization and post‑editing additions (teacher recommendations)](#13-personalization-and-postediting-additions-teacher-recommendations)
+- [Appendix — feature inventory (selected)](#appendix--feature-inventory-selected)
+
 ### Executive summary
 - **Goal**: Turn LinkedIn into a repeatable demand-gen channel by finding controllable levers that lift engagement.
 - **Data**: 31,020 historical posts with content, timing, context, and engagement metrics across industries and geographies.
