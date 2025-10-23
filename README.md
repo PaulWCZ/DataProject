@@ -241,7 +241,7 @@ Note: All times are in decimal format.
 ### 10) Limitations and risk considerations
 - Observational data: correlations ≠ causation; confounding factors (e.g., creative quality) are imperfectly captured.
 - Temporal drift: platform behavior changes; retraining and recalibration needed.
-- Hours Approximation: for big countries, we only considered one timezone
+- **Time zone caveat**: For large countries, we approximated by a single time zone.
 - Industry heterogeneity: engagement norms vary; recommendations should be contextualized.
 - Metric focus: engagement volume may not directly translate to revenue lift.
 
@@ -261,6 +261,31 @@ Note: All times are in decimal format.
 - Environment: Python; scikit-learn, xgboost, seaborn, matplotlib, pandas, numpy
 - Pipeline summary: 16 numerical (scaled) + 7 categorical (one-hot, drop-first) → 89 features; 80/20 split; median threshold for classification analysis.
 
+# /!\ Need Review
+
+### 13) Personalization and post‑editing additions (teacher recommendations)
+
+#### Segmentation and personalization (K‑Means)
+- Goal: tailor recommendations by audience and post clusters.
+- Method: K‑Means clustering with elbow method to select k; PCA for 2D visualization; profiling per cluster.
+- User clustering (k ≈ 4):
+  - Features: `followers_log` (scaled), `location`, `industry`, `audience_size_category` (one‑hot encoded)
+  - Output: distinct audience tiers (Small, Medium, Large, Enterprise) captured by clusters; use clusters to adapt posting windows and formats.
+- Post clustering (k ≈ 5):
+  - Features: `format`, `content_length_category` (encoded), plus numeric signals `num_sentences`, `hashtags_count`, `external_links_count`, `total_mentions`, `content_richness`, `is_weekend`, `is_business_hours`
+  - Profiles (example signals): content richness, length, link/hashtag density, working‑hours vs weekend share.
+  - Typical posts: for each cluster, extract the closest post to the centroid to serve as a concrete content template.
+
+How to use in the playbook:
+- Map a brand to a user cluster → apply cluster‑specific timing and format guidance.
+- Map a draft to a post cluster → use the cluster’s “typical post” as a template; adjust richness/length/links accordingly.
+
+#### Industry alignment recommender
+- Provide top industry probabilities for a draft post to inform targeting and message framing before publishing.
+- Use alongside audience and post clusters to ensure format/timing/positioning are aligned with the most likely industry audience.
+
+Note: Time zone approximation was applied for large countries (single zone); see Limitations.
+
 ---
 
 ### Appendix — feature inventory (selected)
@@ -269,3 +294,4 @@ Note: All times are in decimal format.
 - Audience/context: `followers_log`, `audience_size_category`, `industry`, `location`, `format`, `post_day`
 - Targets/metrics: `total_engagement`, `engagement_rate`, `comments_ratio`
 
+---
