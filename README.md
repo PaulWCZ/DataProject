@@ -90,7 +90,9 @@ By understanding which levers matter most, FinDev can systematize LinkedIn succe
 
 ![Engagement per Audience](images/Engagement_Audien_Size.png)
 
-- **Content length**: Moderate-to-long content correlates with higher engagement vs very short.
+- **Content length**: Larger audiences might show higher absolute engagement but this graph reveals that small audiences have significantly higher engagement rate.
+This is a common phenomenon in social media and marketing analytics: smaller audiences often have more loyal or niche followers, leading to higher interaction relative to their size, while larger or enterprise accounts typically have more followers but less engaged.
+
 
 ![Engagement per Content Length](images/Engagement_per_Content_Length.png)
 
@@ -98,9 +100,12 @@ By understanding which levers matter most, FinDev can systematize LinkedIn succe
 
 ![Engagement by Day](images/EngagementbyDay.png)
 
-- **Correlation highlights**: Except `likes, comments and shares` that are summed to get the `total_engagement`, `followers_log` has the strongest positive correlation with `total_engagement`.
+- **Correlation highlights**: Except `likes, comments and shares` that are summed to get the `total_engagement`, `followers_log` has the strongest positive correlation with `total_engagement`. 
 
 ![Correlation Matrix](images/Correlation_Matrix.png)
+
+The exploratory analysis underscores that engagement is shaped by both structural factors (follower base, format) and behavioral timing (evenings, weekends). Content quality indicators such as length and richness show measurable lift, while excessive external linking or tagging correlates with reduced reach. These insights informed the subsequent feature modeling and playbook design.
+
 ---
 
 ### 5) Machine learning approach
@@ -122,11 +127,21 @@ By understanding which levers matter most, FinDev can systematize LinkedIn succe
   - Classification: ROC AUC, F1, Cohen’s Kappa, Confusion Matrix
 
 #### Headline results (holdout test)
-- Gradient Boosting: **R² 0.476**, RMSE ≈ 149.98, MAE ≈ 69.20, ROC AUC ≈ 0.867, F1 ≈ 0.776, Kappa ≈ 0.490, CV R² ≈ 0.461
-- XGBoost: R² 0.468, RMSE ≈ 151.17, MAE ≈ 69.65, ROC AUC ≈ 0.863, F1 ≈ 0.782, Kappa ≈ 0.515, CV R² ≈ 0.447
-- Random Forest: R² 0.455, RMSE ≈ 152.99, MAE ≈ 71.88, ROC AUC ≈ 0.857, F1 ≈ 0.774, Kappa ≈ 0.488, CV R² ≈ 0.448
-- MLP: R² 0.375, RMSE ≈ 163.77, MAE ≈ 81.85
-- Linear/Ridge/Lasso and a standalone Tree trail the ensembles.
+**📊 MODEL PERFORMANCE COMPARISON (Regression + Binary Classification)**
+
+| Model | Test R² | Test RMSE | Test MAE | Test ROC AUC | Test F1 | Test Kappa | CV R² Mean |
+|---|---|---|---|---|---|---|---|
+| Gradient Boosting | **0.47594** | 149.977527 | 69.198876 | 0.866812 | 0.776034 | 0.489872 | 0.46057 |
+| XGBoost | 0.467574 | 151.169793 | 69.652141 | 0.863389 | 0.781531 | 0.514749 | 0.447115 |
+| Random Forest | 0.454673 | 152.990315 | 71.876508 | 0.856696 | 0.774135 | 0.488367 | 0.447999 |
+| MLP Neural Net | 0.375153 | 163.765563 | 81.854639 | 0.796491 | 0.731317 | 0.421376 | 0.379815 |
+| Decision Tree | 0.339801 | 168.334466 | 74.855297 | 0.844229 | 0.753173 | 0.432049 | 0.313219 |
+| Linear Regression | 0.298359 | 173.537384 | 89.914642 | 0.797720 | 0.726805 | 0.344715 | 0.296786 |
+| Ridge Regression | 0.298292 | 173.545634 | 89.861060 | 0.797544 | 0.726571 | 0.343708 | 0.296864 |
+| Lasso Regression | 0.295922 | 173.838532 | 89.594582 | 0.792356 | 0.724187 | 0.331677 | 0.295490 |
+
+Ensemble methods (Gradient Boosting, XGBoost, Random Forest) clearly outperformed linear and neural baselines, achieving near-identical and stable generalization performance.
+More specifically Gradient Boosting has the highest R² and lowest errors (RMSE and MAE)
 
 #### Confusion matrix (Gradient Boosting; high vs low engagement)
 
@@ -145,10 +160,9 @@ By understanding which levers matter most, FinDev can systematize LinkedIn succe
 
 ![ROC AUC](images/ROCAUC.png)
 
-
-# /!\ I stopped here
-
 - **Diagnostics**: Actual-vs-Predicted scatter shows reasonable fit with spread expected for social data; residuals centered around 0; model comparison confirms ensemble superiority.
+
+![Model Performance Analysis](images/Model_Performance_Analysis.png)
 
 ---
 
@@ -164,6 +178,8 @@ Top drivers (optimized Gradient Boosting, top-10):
 8) `format_Repost` (≈ 0.028)
 9) `content_richness` (≈ 0.024)
 10) `format_Text` (≈ 0.022)
+
+![Feature Importance](images/Feature_Importance.png)
 
 Interpretation:
 - Building and nurturing the follower base is the single most impactful lever.
@@ -218,7 +234,7 @@ Note: All times are in decimal format.
 - Invest in follower growth: cross-promotion, employee advocacy, gated content strategy.
 - Creative checklist: narrative clarity, concrete visual support (for Video/Image), specific POV, and one clear CTA.
 
-Expected impact: Transition from inconsistent engagement to an average of ~160+ interactions per priority post, with improved predictability through optimized timing and content alignment.
+**Expected impact**: Transition from inconsistent engagement to an average of ~160+ interactions per priority post, with improved predictability through optimized timing and content alignment.
 
 ---
 
