@@ -16,18 +16,43 @@ Team: Paul Witczak, Filip Janeba, Jasmine Dressler, Sara Tamanza
 ---
 
 ### 1) Business context
-FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Current performance is volatile: a few standout posts, many quiet ones. We aim to build a data-backed playbook—what to post, and when—to lift engagement consistently.
+We are FinDev’s data science partner. FinDev builds financial software for B2B clients and wants to turn LinkedIn into a steady pipeline for awareness and qualified conversations.
 
-- **Success metric**: Total engagement = Likes + Comments + Shares
-- **Mandate**: Identify controllable levers (timing, format, content) and quantify their impact.
+The current performance is volatile: a few posts achieve strong visibility and engagement, while the majority receive minimal traction. This inconsistency limits the platform’s value as a predictable lead-generation and brand-building tool.
+
+To address this, we aim to build a data-driven LinkedIn playbook that defines:
+- **What to post**: which themes, tones, and content types resonate most
+- **When to post**: optimal timing
+- **How to post**: which formats deliver the best return
+
+The ultimate goal is to move from ad-hoc content success to consistent, repeatable engagement growth.
+
+- **Success metrics**:
+  - **Primary**: Total engagement = Likes + Comments + Shares
+  - **Secondary**: Engagement rate = Total Engagement / Total Followers
+  - These reflect absolute performance and efficiency relative to audience size.
+
+The mandate is to identify controllable levers—factors within FinDev’s influence that drive engagement—and quantify their impact. Specifically:
+- **Timing**: posting day and hour
+- **Format**: post type and media used
+- **Content**: topic, tone, and message framing
+
+By understanding which levers matter most, FinDev can systematize LinkedIn success and make performance a predictable outcome of strategic choices, not chance.
 
 ---
 
 ### 2) Data overview
-- **Rows**: 31,020 posts; **Columns**: 19 raw features (plus engineered features)
-- **Time range**: 2013-10-31 to 2025-10-01
-- **Completeness**: 0 missing; 0 duplicates in raw snapshot
-- **Key raw fields**: `format`, `post_date`, `post_day`, `post_hour`, `likes`, `comments`, `shares`, `followers`, `industry`, `location`, content counters (hashtags, links, mentions)
+- **Dataset composition**: 31,020 LinkedIn posts, 19 raw features (plus engineered variables added during preprocessing)
+- **Time coverage**: 2013-10-31 to 2025-10-01 (12 years), enabling both long-term trend and short-term dynamics analysis
+- **Data quality**:
+  - Completeness: no missing values across the raw feature set
+  - Uniqueness: no duplicate records in the raw snapshot
+  - Therefore, the dataset was considered clean and reliable prior to feature engineering and modeling
+- **Core raw features** (three dimensions):
+  - Post metadata: `format`, `post_date`, `post_day`, `post_hour`
+  - Engagement metrics: `likes`, `comments`, `shares`
+  - Audience context: `followers`, `industry`, `location`
+  - Content indicators: `hashtags_count`, `external_links_count`, `company_mentions_count`, `profile_mentions_count`
 
 ---
 
@@ -44,7 +69,12 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 ---
 
 ### 4) Exploratory data analysis (what we found)
-- Distributions are heavy-tailed; a minority of posts drive a large share of engagement.
+- The explanatory data analysis focused on understanding engagement behaviour patterns across timing, content format, audience scale, and other contextual factors. Distributions, correlations, and segmentation analyses were performed to reveal the underlying drivers of variability in LinkedIn post performance.
+- **Distribution patterns** 
+  - Across all engagement metrics, the data exhibited heavy-tailed distribution - meaning a small minority of posts captured a disproportionately large share of total engagement
+
+![Distribution patterns](images/Distribution_Pattern.png)
+
 - **Format differences** in mean engagement (descending):
   - Repost ≈ 160.8
   - Video ≈ 137.4
@@ -53,10 +83,16 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
   - Document ≈ 77.1
   - Article ≈ 42.6
   - Poll ≈ 27.5
+  
+![Engagement per Format](images/Engagement_per_Format.png)
+  
 - **Audience size**: Larger audiences show higher absolute engagement but not necessarily higher engagement rate.
+
+![Engagement per Audience](images/Engagement_Audien_Size.png)
+
 - **Content length**: Moderate-to-long content correlates with higher engagement vs very short.
 
-![Linkedin Engagement Analysis](images/engagement_analysis.png)
+![Engagement per Content Length](images/Engagement_per_Content_Length.png)
 
 - **Timing**: Evening performs best; then night, afternoon, morning. Hourly patterns reveal elevated engagement around late morning/afternoon/evening on weekends.
 
@@ -68,7 +104,9 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
 ---
 
 ### 5) Machine learning approach
-- **Target**: `total_engagement` (regression). Additionally, we evaluate classification performance on a derived label (above/below median engagement) for decision support.
+- **Objective**
+  - Regression: predict `total_engagement` as a continuous target
+  - Classification: evaluate high vs low engagement via median-thresholded predictions
 - **Train/test split**: 80/20 with stratification on `audience_size_category`.
 - **Pipeline**:
   - Numerical: `StandardScaler`
@@ -81,7 +119,7 @@ FinDev (B2B financial software) needs reliable reach to buyers on LinkedIn. Curr
   - MLPRegressor
 - **Key metrics**:
   - Regression: Test R², RMSE, MAE; CV R² (3-fold) for consistency
-  - Classification (using median threshold on predictions): ROC AUC, F1, Cohen’s Kappa, Confusion Matrix
+  - Classification: ROC AUC, F1, Cohen’s Kappa, Confusion Matrix
 
 #### Headline results (holdout test)
 - Gradient Boosting: **R² 0.476**, RMSE ≈ 149.98, MAE ≈ 69.20, ROC AUC ≈ 0.867, F1 ≈ 0.776, Kappa ≈ 0.490, CV R² ≈ 0.461
@@ -131,7 +169,7 @@ Interpretation:
 - Building and nurturing the follower base is the single most impactful lever.
 - Timing matters in a cyclical way (captured by sine/cosine encodings).
 - Long-form content (more sentences) and richer content correlate with higher engagement.
-- Format and industry context materially influence outcomes.
+- Industry and format context materially influence outcomes.
 
 ---
 
@@ -156,9 +194,9 @@ Interpretation:
 - Repost (≈ 160.8) > Video (≈ 137.4) > Text (≈ 136.0) > Image (≈ 93.0) > Document (≈ 77.1) > Article (≈ 42.6) > Poll (≈ 27.5)
 
 #### Content element guidance
-- Hashtags: −38.8% vs posts without
-- External links: −22.1%
-- Mentions: −15.6%
+- Posts with hashtags perform −38.8% vs without hashtags
+- Posts with external links perform −22.1% vs without links
+- Posts with mentions perform −15.6% vs without mentions
 Note: These are correlational reductions in this dataset; treat as guardrails, not absolutes. When using links/mentions, ensure strong creative and relevance.
 
 #### Audience-specific recommendations (examples by segment)
@@ -166,6 +204,7 @@ Note: These are correlational reductions in this dataset; treat as guardrails, n
 - Large audience: Repost; Wednesday; ~21.48; morning segment strong
 - Small audience: Repost; Saturday; ~21.38; night segment strong
 - Enterprise: Text; Wednesday; ~7.95; evening segment strong
+Note: All times are in decimal format.
 
 #### Industry benchmarking (top-5 by avg engagement)
 - Computer Hardware Manufacturing, Spectator Sports, Higher Education, Law Enforcement, Technology/Internet
@@ -179,23 +218,24 @@ Note: These are correlational reductions in this dataset; treat as guardrails, n
 - Invest in follower growth: cross-promotion, employee advocacy, gated content strategy.
 - Creative checklist: narrative clarity, concrete visual support (for Video/Image), specific POV, and one clear CTA.
 
-Expected impact: Moving from mixed results toward ~160+ average engagement per high-priority post (reposts baseline), plus improved top-end outcomes through better timing/format alignment.
+Expected impact: Transition from inconsistent engagement to an average of ~160+ interactions per priority post, with improved predictability through optimized timing and content alignment.
 
 ---
 
 ### 10) Limitations and risk considerations
 - Observational data: correlations ≠ causation; confounding factors (e.g., creative quality) are imperfectly captured.
 - Temporal drift: platform behavior changes; retraining and recalibration needed.
-- Industry mix effects: audience expectations differ; tailor by segment/industry.
-- Metric scope: engagement quantity; does not directly measure downstream revenue lift.
+- Hours Approximation: for big countries, we only considered one timezone
+- Industry heterogeneity: engagement norms vary; recommendations should be contextualized.
+- Metric focus: engagement volume may not directly translate to revenue lift.
 
 ---
 
 ### 11) Next steps
-- Controlled A/Bs on timing, formats, and content elements to validate causality and lift.
-- Add text understanding (embeddings/LLMs) to capture topic and tone.
-- Per-industry fine-tuning and multi-objective optimization (engagement + CTR/lead quality).
-- Automate weekly retraining/monitoring; add drift and performance alerts.
+- Conduct controlled A/B tests to validate causal impacts of timing and content format.
+- Incorporate text embeddings or LLM-based topic/tone models for semantic analysis.
+- Build per-industry fine-tuning and multi-objective optimization (engagement + CTR/lead quality).
+- Automate weekly retraining and drift monitoring with performance alerts.
 
 ---
 
@@ -213,4 +253,3 @@ Expected impact: Moving from mixed results toward ~160+ average engagement per h
 - Audience/context: `followers_log`, `audience_size_category`, `industry`, `location`, `format`, `post_day`
 - Targets/metrics: `total_engagement`, `engagement_rate`, `comments_ratio`
 
-This document is a text-first presentation of methods, findings, and the resulting LinkedIn posting playbook. Use it as a living artifact to guide experiments and updates as the platform and audience evolve.
