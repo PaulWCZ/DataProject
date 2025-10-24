@@ -2,6 +2,8 @@
 
 Team: Paul Witczak, Filip Janeba, Jasmine Dressler, Sara Tamanza
 
+[![DataLink Video](images/miniature.jpg)](video/DataLink.mp4)
+
 ### Contents
 - [Executive summary](#executive-summary)
 - [1) Business context](#1-business-context)
