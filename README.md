@@ -280,30 +280,40 @@ Note: All times are in decimal format.
 - Environment: Python; scikit-learn, xgboost, seaborn, matplotlib, pandas, numpy
 - Pipeline summary: 16 numerical (scaled) + 7 categorical (one-hot, drop-first) → 89 features; 80/20 split; median threshold for classification analysis.
 
-# /!\ Need Review
+---
 
 ### 13) Personalization and post‑editing additions (teacher recommendations)
 
-#### Segmentation and personalization (K‑Means)
-- Goal: tailor recommendations by audience and post clusters.
-- Method: K‑Means clustering with elbow method to select k; PCA for 2D visualization; profiling per cluster.
-- User clustering (k ≈ 4):
-  - Features: `followers_log` (scaled), `location`, `industry`, `audience_size_category` (one‑hot encoded)
-  - Output: distinct audience tiers (Small, Medium, Large, Enterprise) captured by clusters; use clusters to adapt posting windows and formats.
-- Post clustering (k ≈ 5):
-  - Features: `format`, `content_length_category` (encoded), plus numeric signals `num_sentences`, `hashtags_count`, `external_links_count`, `total_mentions`, `content_richness`, `is_weekend`, `is_business_hours`
-  - Profiles (example signals): content richness, length, link/hashtag density, working‑hours vs weekend share.
-  - Typical posts: for each cluster, extract the closest post to the centroid to serve as a concrete content template.
+#### Model performance analysis without key features
+- **Goal**: Test model robustness by removing the most important predictor (`followers_log`)
+- **Method**: Retrain Gradient Boosting model on reduced feature set to evaluate performance degradation
+- **Results**: Model performance drops significantly, confirming `followers_log` as the dominant predictor
+- **Insight**: Follower base size is irreplaceable for engagement prediction
 
-How to use in the playbook:
-- Map a brand to a user cluster → apply cluster‑specific timing and format guidance.
-- Map a draft to a post cluster → use the cluster’s “typical post” as a template; adjust richness/length/links accordingly.
+#### Industry classification model
+- **Goal**: Predict which industry a post belongs to based on post characteristics
+- **Method**: Gradient Boosting Classifier with SMOTE for class balancing
+- **Features**: Same feature set as engagement model (including `followers_log`)
+- **Results**: 99% accuracy across industries, with `followers_log` (80.5% importance) and location features being primary predictors
+- **Insight**: Industry classification is primarily driven by account characteristics rather than post content
 
-#### Industry alignment recommender
-- Provide top industry probabilities for a draft post to inform targeting and message framing before publishing.
-- Use alongside audience and post clusters to ensure format/timing/positioning are aligned with the most likely industry audience.
+#### SMOTE for class imbalance handling
+- **Goal**: Address class imbalance in industry classification
+- **Method**: Apply SMOTE to training data only, evaluate on original test data
+- **Rationale**: Train on balanced data to learn minority class patterns, evaluate on realistic imbalanced data
+- **Best practice**: SMOTE applied only to training set to prevent data leakage and ensure unbiased evaluation
 
-Note: Time zone approximation was applied for large countries (single zone); see Limitations.
+#### K-means clustering for personalization
+- **Goal**: Tailor recommendations by audience and post clusters
+- **Method**: K-means clustering with elbow method to select optimal k; PCA for 2D visualization
+- **User clustering**: Group accounts by `followers_log`, `location`, `industry`, `audience_size_category`
+- **Post clustering**: Group posts by `format`, `content_length_category`, `num_sentences`, `hashtags_count`, `external_links_count`, `total_mentions`, `content_richness`, `is_weekend`, `is_business_hours`
+- **Application**: Use clusters to adapt posting windows, formats, and content templates for different audience segments
+
+#### Feature importance comparison
+- **Engagement model**: `followers_log` dominates (46.4% importance)
+- **Industry model**: `followers_log` even more dominant (80.5% importance)
+- **Insight**: Account characteristics (follower count, location) are more predictive than content features for both tasks
 
 ---
 
