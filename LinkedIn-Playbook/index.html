@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Engagement Playbook - Data-Driven Success</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#hero" class="nav-brand">LinkedIn Playbook</a>
+            <ul class="nav-menu">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#problem">Challenge</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#findings">Findings</a></li>
+                <li><a href="#ml">ML Approach</a></li>
+                <li><a href="#playbook">Playbook</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">LinkedIn Engagement Playbook</h1>
+                <p class="hero-subtitle">Turning Data into Demand Generation</p>
+                <div class="team-names">
+                    <span>Paul Witczak</span>
+                    <span>Filip Janeba</span>
+                    <span>Jasmine Dressler</span>
+                    <span>Sara Tamanza</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="31020">0</div>
+                        <div class="stat-label">Posts Analyzed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="48.3">0</div>
+                        <div class="stat-label">R² Score (%)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="86">0</div>
+                        <div class="stat-label">ROC AUC (%)</div>
+                    </div>
+                </div>
+                <a href="#problem" class="cta-button">Explore Insights</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement -->
+    <section id="problem" class="problem">
+        <div class="container">
+            <h2 class="section-title">The Challenge</h2>
+            <p class="section-subtitle">FinDev's LinkedIn performance was volatile and unpredictable</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📈</div>
+                    <h3>Viral posts were rare</h3>
+                    <p>Most content struggled to gain traction</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📊</div>
+                    <h3>Minimal engagement</h3>
+                    <p>Most posts got limited interactions</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3>No systematic approach</h3>
+                    <p>Content strategy lacked data-driven insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Overview -->
+    <section id="solution" class="solution">
+        <div class="container">
+            <h2 class="section-title">Our Data-Driven Solution</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Data Collection</h3>
+                        <p>12 years of LinkedIn data across 31,020 posts</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Feature Engineering</h3>
+                        <p>Extracted timing, format, and content features</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>ML Modeling</h3>
+                        <p>Gradient Boosting achieved 86% ROC AUC</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Insights &amp; Recommendations</h3>
+                        <p>Actionable playbook for repeatable success</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Findings -->
+    <section id="findings" class="findings">
+        <div class="container">
+            <h2 class="section-title">Key Findings</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="format">Format Performance</button>
+                <button class="tab-button" data-tab="timing">Timing Analysis</button>
+                <button class="tab-button" data-tab="avoid">What to Avoid</button>
+                <button class="tab-button" data-tab="features">Feature Importance</button>
+            </div>
+            
+            <div class="tab-content">
+                <!-- Format Performance Tab -->
+                <div id="format-tab" class="tab-panel active">
+                    <h3>Engagement by Content Format</h3>
+                    <div class="chart-container">
+                        <canvas id="formatChart"></canvas>
+                    </div>
+                    <div class="insights">
+                        <div class="insight-card">
+                            <div class="insight-icon">🔄</div>
+                            <div>
+                                <h4>Reposts Lead</h4>
+                                <p>160.8 avg engagement - highest performance</p>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon">🎥</div>
+                            <div>
+                                <h4>Video Power</h4>
+                                <p>137.4 avg engagement - visual content wins</p>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon">📝</div>
+                            <div>
+                                <h4>Text Strong</h4>
+                                <p>136.0 avg engagement - thought leadership</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timing Analysis Tab -->
+                <div id="timing-tab" class="tab-panel">
+                    <h3>Optimal Posting Times</h3>
+                    <div class="chart-container">
+                        <canvas id="timingChart"></canvas>
+                    </div>
+                    <div class="time-highlights">
+                        <div class="time-card">
+                            <div class="time-icon">🌅</div>
+                            <h4>Saturday 10:47 AM</h4>
+                            <p>Peak weekend morning engagement</p>
+                        </div>
+                        <div class="time-card">
+                            <div class="time-icon">🌇</div>
+                            <h4>Sunday 4:33 PM</h4>
+                            <p>Optimal weekend afternoon slot</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What to Avoid Tab -->
+                <div id="avoid-tab" class="tab-panel">
+                    <h3>Elements That Hurt Engagement</h3>
+                    <div class="avoid-grid">
+                        <div class="avoid-card">
+                            <div class="avoid-icon">⚠️</div>
+                            <div class="avoid-content">
+                                <h4>Hashtags <span class="negative">-38.8%</span></h4>
+                                <p>Use 1-2 max, strategically placed</p>
+                            </div>
+                        </div>
+                        <div class="avoid-card">
+                            <div class="avoid-icon">🔗</div>
+                            <div class="avoid-content">
+                                <h4>External Links <span class="negative">-22.1%</span></h4>
+                                <p>Minimize unnecessary outbound links</p>
+                            </div>
+                        </div>
+                        <div class="avoid-card">
+                            <div class="avoid-icon">@</div>
+                            <div class="avoid-content">
+                                <h4>Mentions <span class="negative">-15.6%</span></h4>
+                                <p>Tag only when adding clear value</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Importance Tab -->
+                <div id="features-tab" class="tab-panel">
+                    <h3>Top 10 Predictive Features</h3>
+                    <div class="chart-container">
+                        <canvas id="featuresChart"></canvas>
+                    </div>
+                    <div class="feature-highlight">
+                        <div class="highlight-card">
+                            <div class="highlight-icon">👥</div>
+                            <h4>Followers Dominate</h4>
+                            <p>46.4% of model importance - audience size is king</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ML Approach -->
+    <section id="ml" class="ml">
+        <div class="container">
+            <h2 class="section-title">Our ML Approach</h2>
+            <div class="models-grid">
+                <div class="model-card">Linear Regression</div>
+                <div class="model-card">Ridge Regression</div>
+                <div class="model-card">Lasso Regression</div>
+                <div class="model-card">Decision Tree</div>
+                <div class="model-card">Random Forest</div>
+                <div class="model-card winner">Gradient Boosting ✓</div>
+                <div class="model-card">XGBoost</div>
+                <div class="model-card">Neural Network</div>
+            </div>
+            
+            <div class="performance-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">0.483</div>
+                    <div class="metric-label">R² Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">148.9</div>
+                    <div class="metric-label">RMSE</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">69.5</div>
+                    <div class="metric-label">MAE</div>
+                </div>
+                <div class="metric-card highlighted">
+                    <div class="metric-value">0.859</div>
+                    <div class="metric-label">ROC AUC</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Analysis -->
+    <section id="advanced" class="advanced">
+        <div class="container">
+            <h2 class="section-title">Beyond Basic Prediction</h2>
+            <div class="advanced-grid">
+                <div class="advanced-card">
+                    <div class="advanced-icon">🏢</div>
+                    <h3>Industry Classification</h3>
+                    <p>59% accuracy across 34 industries with SMOTE balancing</p>
+                </div>
+                <div class="advanced-card">
+                    <div class="advanced-icon">📊</div>
+                    <h3>Probability Recommendations</h3>
+                    <p>Financial Services: 67.2%<br>Software Development: 25.9%</p>
+                </div>
+                <div class="advanced-card">
+                    <div class="advanced-icon">🎯</div>
+                    <h3>Clustering Analysis</h3>
+                    <p>User &amp; Post segmentation with K-Means (k=4 users, k=5 posts)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FinDev Playbook -->
+    <section id="playbook" class="playbook">
+        <div class="container">
+            <h2 class="section-title">Strategic Recommendations</h2>
+            <div class="playbook-grid">
+                <div class="playbook-section do">
+                    <h3>✅ DO</h3>
+                    <ul class="playbook-list">
+                        <li>Prioritize Reposts &amp; Videos for maximum reach</li>
+                        <li>Post during evenings &amp; weekends (Sat/Sun optimal)</li>
+                        <li>Write 5-6 sentence posts with clear narrative</li>
+                        <li>Build follower base through cross-promotion</li>
+                        <li>Test Text posts for thought leadership</li>
+                    </ul>
+                </div>
+                <div class="playbook-section dont">
+                    <h3>❌ DON'T</h3>
+                    <ul class="playbook-list">
+                        <li>Overuse hashtags (keep to 1-2 max)</li>
+                        <li>Add unnecessary external links</li>
+                        <li>Tag excessively without value</li>
+                        <li>Post mornings on weekdays</li>
+                        <li>Use Polls for B2B engagement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expected Impact -->
+    <section id="impact" class="impact">
+        <div class="container">
+            <h2 class="section-title">Expected Impact</h2>
+            <div class="impact-comparison">
+                <div class="impact-section before">
+                    <h3>📉 BEFORE</h3>
+                    <ul class="impact-list">
+                        <li>Volatile engagement</li>
+                        <li>Unpredictable results</li>
+                        <li>No systematic approach</li>
+                    </ul>
+                </div>
+                <div class="impact-arrow">→</div>
+                <div class="impact-section after">
+                    <h3>📈 AFTER</h3>
+                    <ul class="impact-list">
+                        <li>~160+ interactions per priority post</li>
+                        <li>Predictable performance</li>
+                        <li>Repeatable demand generation</li>
+                        <li>Data-driven content decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech" class="tech">
+        <div class="container">
+            <h2 class="section-title">Technical Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-badge">🐍 Python</div>
+                <div class="tech-badge">🤖 scikit-learn</div>
+                <div class="tech-badge">🚀 XGBoost</div>
+                <div class="tech-badge">🐼 pandas</div>
+                <div class="tech-badge">📊 seaborn</div>
+                <div class="tech-badge">📓 Jupyter Notebook</div>
+            </div>
+            <div class="tech-info">
+                <p>Fully reproducible analysis with documented methodology</p>
+                <a href="https://github.com/PaulWCZ/DataProject.git" class="repo-link">View Code Repository →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="team-section">
+                    <h3>Project Team</h3>
+                    <div class="team-grid">
+                        <div class="team-member">Paul Witczak</div>
+                        <div class="team-member">Filip Janeba</div>
+                        <div class="team-member">Jasmine Dressler</div>
+                        <div class="team-member">Sara Tamanza</div>
+                    </div>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2025 LinkedIn Engagement Playbook Project</p>
+                    <p>Data Science &amp; Machine Learning Analysis</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
