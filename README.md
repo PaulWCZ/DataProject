@@ -144,7 +144,7 @@ The exploratory analysis underscores that engagement is shaped by both structura
   - Classification: ROC AUC, F1, Cohen’s Kappa, Confusion Matrix
 
 #### Headline results (holdout test)
-**📊 MODEL PERFORMANCE COMPARISON (Regression + Binary Classification)**
+**MODEL PERFORMANCE COMPARISON (Regression + Binary Classification)**
 
 | Model | Test R² | Test RMSE | Test MAE | Test ROC AUC | Test F1 | Test Kappa | CV R² Mean |
 |---|---|---|---|---|---|---|---|
